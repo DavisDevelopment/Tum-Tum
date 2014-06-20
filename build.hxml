@@ -1,0 +1,10 @@
+-main TumTum
+-cp Classes
+-js Export/NodeJS/tum-tum.js
+
+--next
+
+-main TumTum
+-cp Classes
+-D bin
+-js Export/NodeJS/bin/tum-tum.js

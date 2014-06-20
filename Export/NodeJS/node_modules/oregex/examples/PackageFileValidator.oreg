@@ -1,0 +1,46 @@
+/*
+	PackageFileValidator.oreg -- An ORegEx filter written to validate 'package.json' files for Node modules
+	author: Ryan Davis
+	email: epikit@gmail.com
+*/
+
+/* check for 'name' property */
+([name] [name .= String])
+
+/* check for existence of 'description' property, and if it's present, check that it is of type 'String' */
+([description] ? [description .= String] : *)
+
+/* check for 'version' property, and that it's a String */
+([version] [version .= String])
+
+/* check for 'author' property, and that it's a String */
+([author] [author .= String])
+
+/* If 'dependencies' exists, make sure it's an Object */
+([dependencies] ? ([dependencies .= 'Object') : *)
+
+/* If 'contributors' exists, verify that it's an 'Array', or, if possible, verify that it's an Array of Objects. */
+([contributors] ? ([contributors => .'Array<Object<String, String>>'] | [contributors => .'Array']) : *)
+
+/* If 'keywords' exists, make sure it's an Array of Strings */
+([keywords] ? [keywords => .'Array<String>'] : *)
+
+/* 
+If 'preferGlobal' exists, then verify that it is of type 'Bool'.
+If it is, and its value is 'true', verify that 'bin' also exists and is of type 'Object'.
+*/
+(
+	[preferGlobal]
+	?
+		(
+			[preferGlobal .= Bool]
+			? 
+				([preferGlobal = true] ? ([bin] [bin => .'Object']) : *)
+			:
+				(!*)
+		)
+	:
+		*
+)
+/* Verify that if 'repository' exists, it is of type 'Object' and has both 'type', and 'url' properties */
+([repository] ? ([repository .= 'Object<String, String>'] [repository => ([type] [url])]) : *)

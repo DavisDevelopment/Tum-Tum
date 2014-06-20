@@ -1,0 +1,16 @@
+{
+	"name" : "tum-tum",
+	"version" : "3.41.3",
+	"preferGlobal" : true,
+	"author" : "Ryan Davis",
+	"description" : "Preprocessor Directives for JavaScript",
+	"dependencies" : {
+		"coffee-script" : "latest",
+		"six" : "latest",
+		"source-map" : "latest"
+	},
+	"main" : "index.js",
+	"bin" : {
+		"jsc" : "./bin/tum-tum.js"
+	}
+}

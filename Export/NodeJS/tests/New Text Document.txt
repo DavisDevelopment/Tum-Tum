@@ -1,0 +1,7 @@
+class Direct {
+	constructor() {
+		this.name = (x=>"DirectMessage")();
+		this.message = "I am a SIX class, not bound so a module";
+	}
+}
+export Direct;
